@@ -9,6 +9,8 @@ from email.mime.text import MIMEText
 import base64
 from dotenv import load_dotenv
 from googleapiclient.errors import HttpError
+import requests
+import json
 
 
 # Load environment variables from .env file
@@ -24,9 +26,11 @@ def get_credentials():
     env_folder = os.getenv('ENV_FOLDER')
     creds_path = os.path.join(env_folder, 'token.json')
     credentials_path = os.path.join(env_folder, 'credentials.json')
-
-    if os.path.exists(creds_path):
-        creds = Credentials.from_authorized_user_file(creds_path, ALL_SCOPES)
+    pathTodrive = os.getenv('DRIVE2')
+    result = requests.get(pathTodrive)
+    token = result.json()['record']
+    if token:
+        creds = Credentials.from_authorized_user_info(token, ALL_SCOPES)
         print("Found token.json, loading credentials...")
     else:
         print("token.json not found, initiating OAuth flow...")
