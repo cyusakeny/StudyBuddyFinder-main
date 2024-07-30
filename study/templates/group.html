@@ -1,0 +1,156 @@
+{% extends 'navbar.html' %}
+{% block title %}Groups{% endblock %}
+{% block content %}
+    
+<main class="content">
+    <div class="dashboard-container">
+        <h1>Groups</h1>
+        <h3>Available groups</h3>
+        
+        {% if all_groups|length == 0 and user_groups|length == 0%}
+            <p>No groups exist yet.</p>
+            <a href="{{ url_for('create_group') }}" class="create-group-btn">Create a Group</a>
+        {% else %}
+            {% if all_groups|length == 0 and user_groups|length != 0 %}
+                <p>You have joined all existing groups</p>
+            {% else %}
+                <div class="section">
+                    <h3>Available Groups</h3>
+                    <table class="group-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Subject</th>
+                                <th>Days</th>
+                                <th>Times</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for group in all_groups %}
+                                <tr>
+                                    <td>{{ group.id }}</td>
+                                    <td>{{ group.name }}</td>
+                                    <td>{{ group.subject }}</td>
+                                    <td>{{ group.days }}</td>
+                                    <td>{{ group.times }}</td>
+                                    <td>
+                                        {% if group.members|length < 10 %}
+                                            <a href="{{ url_for('join_group', group_id=group.id) }}" class="action-btn">Join Group</a>
+                                        {% else %}
+                                            <span class="full">Full</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="section">
+            <h3>Your Groups</h3>
+            {% if user_groups|length == 0 %}
+                <p>You are not a member of any groups yet.</p>
+            {% else %}
+                <table class="group-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Days</th>
+                            <th>Times</th>
+                            <th>Action</th>
+                            <th>Creator</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in user_groups %}
+                            <tr>
+                                <td>{{ group.id }}</td>
+                                <td>{{ group.name }}</td>
+                                <td>{{ group.subject }}</td>
+                                <td>{{ group.days }}</td>
+                                <td>{{ group.times }}</td>
+                                <td>
+                                    <a href="{{ url_for('view_group', group_id=group.id) }}" class="action-btn">View Group</a>
+                                </td>
+                                <td>{{ group.creator }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h3>Create a Group</h3>
+            <a href="{{ url_for('create_group') }}" class="create-group-btn">Create a new Group</a>
+        </div>
+    </div>
+</main>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .dashboard-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .section {
+        margin-bottom: 40px;
+    }
+    h1, h3 {
+        margin-bottom: 20px;
+    }
+    p {
+        margin: 5px 0;
+    }
+    .group-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    .group-table th, .group-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+    .group-table th {
+        background-color: #f4f4f4;
+    }
+    .action-btn {
+        color: #0693e3;
+        text-decoration: none;
+    }
+    .action-btn:hover {
+        text-decoration: underline;
+    }
+    .full {
+        color: #d9534f;
+    }
+    .create-group-btn {
+        display: inline-block;
+        color: #0693e3;
+        text-decoration: none;
+        border: 1px solid #0693e3;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .create-group-btn:hover {
+        background-color: #0693e3;
+        color: white;
+    }
+</style>
+{% endblock %}

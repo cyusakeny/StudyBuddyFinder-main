@@ -1,0 +1,113 @@
+{% extends 'navbar.html' %}
+{% block title %}Group Details{% endblock %}
+{% block content %}
+<main class="group-details-content">
+    <div class="header">
+        <h1>{{ group.name }}</h1>
+        <p>The following are the details of the group:</p>
+    </div>
+    <div class="group-info">
+        <h3>Group Information</h3>
+        <p><strong>Group Name:</strong> {{ group.name }}</p>
+        <p><strong>Subject:</strong> {{ group.subject }}</p>
+        <p><strong>Days:</strong> {{ group.days }}</p>
+        <p><strong>Times:</strong> {{ group.times }}</p>
+        <p><strong>Creator:</strong> {{ group.creator }}</p>
+    </div>
+    <div class="members">
+        <h3>Members</h3>
+        <ul>
+            {% for member in all_members %}
+            <li>{{ member }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="sessions">
+        <h3>Sessions</h3>
+        <p>Here are the upcoming sessions:</p>
+        {% if not sessions %}
+            <p>No upcoming sessions scheduled yet.</p>
+        {% else %}
+            <ul>
+                {% for session in sessions %}
+                <li><strong>{{ session.summary }}</strong><br></li>
+                <li>
+                    Meeting ID: {{ session.id }}
+                    <br>
+                    {{ session.start_datetime.strftime('%d-%m-%Y %H:%M') }} - {{ session.end_datetime.strftime('%d-%m-%Y %H:%M') }}
+                    <br>
+                    <a href="{{ session.meet_link }}" target="_blank">Join Meeting</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="actions">
+        <h3>Actions</h3>
+        {% if group.creator == current_user.username %}
+            <a href="{{ url_for('delete_group', group_id=group.id) }}" class="action-btn delete-btn">Delete Group</a>
+            <a href="{{ url_for('schedule') }}" class="action-btn schedule-btn">Create a Schedule</a>
+            <a href="{{ url_for('delete_event', event_id=event_id) }} "class="action-btn delete-btn">Delete Event</a>
+        {% else %}
+            <a href="{{ url_for('leave_group', group_id=group.id) }}" class="action-btn leave-btn">Leave Group</a>
+        {% endif %}
+    </div>
+</main>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .group-details-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .group-info, .members, .actions {
+        margin-bottom: 20px;
+    }
+    h3 {
+        margin-top: 0;
+    }
+    p {
+        margin: 5px 0;
+    }
+    ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .actions {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .action-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+    .delete-btn {
+        background-color: #e74c3c;
+    }
+    .schedule-btn {
+        background-color: #3498db;
+    }
+    .leave-btn {
+        background-color: #f39c12;
+    }
+</style>
+{% endblock %}

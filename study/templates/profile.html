@@ -1,0 +1,140 @@
+{% extends 'navbar.html' %}
+{% block title %}Create Profile{% endblock %}
+{% block content %}
+<main class="content">
+    <h1>Create Profile</h1>
+    <div class="dashboard-container">
+        <div class="form-container">
+                <h2>Profile</h2>
+                <form method="POST" action="/profile">
+                    {{ form.hidden_tag() }}
+
+                    <div class="form-group">
+                        {{ form.school.label }}
+                        {{ form.school(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.primary_language.label }}
+                        {{ form.primary_language(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.secondary_languages.label }}
+                        {{ form.secondary_languages(class="form-control", size=5, multiple=True) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.days.label }}
+                        {{ form.days(class="form-control", size=7, multiple=True) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.times.label }}
+                        {{ form.times(class="form-control", size=3, multiple=True) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.strong_subjects.label }}
+                        {{ form.strong_subjects(class="form-control", size=5, multiple=True) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.weak_subjects.label }}
+                        {{ form.weak_subjects(class="form-control", size=5, multiple=True) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+                <p>To select more than one option, hold down the Command button on Mac, or the Control button on Windows.</p>
+        </div>
+    </div>
+</main>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    main {
+        margin-left: 250px;
+    }
+    .dashboard-container {
+        display: flex;
+    }
+    .sidebar {
+        width: 200px;
+        background-color: #0c2340;
+        color: white;
+        height: 100vh;
+        padding: 20px;
+    }
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .sidebar li {
+        margin-bottom: 15px;
+    }
+    .sidebar-btn {
+        width: 100%;
+        background: none;
+        border: none;
+        color: white;
+        text-align: left;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    .sidebar-btn i {
+        margin-right: 10px;
+    }
+    .sidebar-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    .content {
+        flex-grow: 1;
+        padding: 20px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .form-container {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+</style>
+
+<script>
+    function navigateTo(url) {
+        window.location.href = url;
+    }
+</script>
+{% endblock %}

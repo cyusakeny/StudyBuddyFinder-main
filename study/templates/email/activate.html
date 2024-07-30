@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Confirm Email</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .containers {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #0c2340;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: #3d6b9d;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="containers">
+            <h1>Confirm Email</h1>
+            <p>Thank you for registering to Study Buddy Finder!
+                Please confirm your email address by clicking the link below:</p>
+            <a href="{{ confirm_url }}">Confirm your email</a>
+        </div>
+    </main>
+{% endblock %}

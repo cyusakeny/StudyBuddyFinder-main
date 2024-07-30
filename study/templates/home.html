@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Home</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            z-index: 1000;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 1rem;
+            margin: 0 10px;
+        }
+
+        main {
+            background-image: url("{{ url_for('static', filename='images/hub-1.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Keeps background image fixed */
+            padding: 80px 20px 20px; /* Adjust padding for fixed header */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        section {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        a.button-blue {
+            background-color: #007bff;
+        }
+
+        a.button:hover {
+            background-color: #218838;
+        }
+
+        a.button-blue:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+{%block header%}
+    <header>
+    
+        <div class="top-header">
+            <div class="logo">Buddy Study Finder</div>
+        
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+        
+        
+    </header>
+{%endblock%}
+{% block content %}
+    <main>
+        <section id="home">
+            <div class="content">
+                <h1>Find your perfect online Study Buddy today!</h1>
+                <p>Get matched up with compatible online study partners based on your interests and preferences.</p>
+                <a href="/login" class="button">Login</a>
+                <a href="/register" class="button button-blue">Register</a>
+                <a href="/resend_confirmation" class="button button-blue">Resend link</a>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="content">
+                <h2>What is a Study Buddy?</h2>
+                <p>A Study Buddy is someone you study alongside with, offering each other mutual support, discussing concepts, and working together on quizzes and assignments.</p>
+            </div>
+            <div class="content">
+                <h2>Why do I need a Study Buddy?</h2>
+                <p>Studying online courses and MOOCs can be an isolating and frustrating experience, and studies have shown that students have a better overall experience and a higher success rate if they work with others with similar interests and goals.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="content">
+                <h2>About Study Buddy Finder</h2>
+                <p>Study Buddy Finder is designed to connect learners with study partners who share similar interests and goals. Whether you're preparing for exams or working on a project, finding the right study buddy can make all the difference.</p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="content">
+                <h2>Contact Us</h2>
+                <p>If you have any questions or need assistance, feel free to reach out to us at support@studybuddyfinder.com.</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const contentSections = document.querySelectorAll('.content');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            contentSections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Smooth scrolling for navigation links
+            const links = document.querySelectorAll('header nav a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}
