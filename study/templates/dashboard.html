@@ -4,13 +4,13 @@
 
 <main class="content">
     <div class="dashboard-container">
-        <h1>Dashboard</h1>
+        <h1>DASHBOARD</h1>
 
         <div class="flex-container">
             <section id="upcoming-sessions" class="section">
                 <h3>Upcoming Sessions</h3>
                 {% if upcoming_sessions %}
-                    <ul>
+                    <ul class="centered-list">
                         {% for session in upcoming_sessions %}
                             <li>
                                 <strong>{{ session.summary }}</strong><br>
@@ -29,7 +29,7 @@
             <section id="past-sessions" class="section">
                 <h3>Past Sessions</h3>
                 {% if past_sessions %}
-                    <ul>
+                    <ul class="centered-list">
                         {% for session in past_sessions %}
                             <li>
                                 <strong>{{ session.summary }}</strong><br>
@@ -49,9 +49,9 @@
             <h3>Your Subjects</h3>
             <div class="subjects-container">
                 <div class="subject-section">
-                    <h4>Strong Subject(s)</h4>
+                    <h3>Strong Subject(s)</h3>
                     {% if strong_subjects %}
-                        <ul>
+                        <ul class="centered-list">
                             {% for subject in strong_subjects %}
                                 <li>{{ subject }}</li>
                             {% endfor %}
@@ -61,9 +61,9 @@
                     {% endif %}
                 </div>
                 <div class="subject-section">
-                    <h4>Weak Subject(s)</h4>
+                    <h3>Weak Subject(s)</h3>
                     {% if weak_subjects %}
-                        <ul>
+                        <ul class="centered-list">
                             {% for subject in weak_subjects %}
                                 <li>{{ subject }}</li>
                             {% endfor %}
@@ -165,8 +165,57 @@
         justify-content: space-between;
     }
     .subject-section {
-        width: 48%;
+        width: 38%;
+        background-color:rgb(195, 193, 204);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        box-shadow: 5px 4px 8px rgb(2, 13, 61);
+        text-align: center;
+        color: #0c2340;
     }
+    .centered-list{
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    }
+    li{
+        font-size: large;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        font-style: oblique;
+    }
+    span{
+        font-size: medium;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h3{
+        font-size: large;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: bold;
+    }
+    h1{
+        font-size: 'xx-large';
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: bolder
+    }
+    #past-sessions{
+        background-color:rgb(195, 193, 204);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        box-shadow: 5px 4px 8px rgb(2, 13, 61);
+        text-align: start;
+        color: #0c2340;
+    }
+    #upcoming-sessions{
+        background-color:rgb(195, 193, 204);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        box-shadow: 5px 4px 8px rgb(2, 13, 61);
+        text-align: start;
+        color: #0c2340;
+    }
+
+
 </style>
 
 {% endblock %}
